@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        function insere_coletor_servidor(){
+            var dadoColetor = {
+                id_col: 0,
+                nome_col: ''
+            };
+            dadoColetor.id_col = parseInt(document.getElementById("id_coletor"));
+            dadoColetor.nome_col = document.getElementById("nome_coletor");
+            $.ajax({
+                url: '/colinsert',
+                type: 'POST',
+                contentType: 'application/json', //Tipo de dado enviado
+                data: JSON.stringify(dadoColetor),
+                success: function(response) {
+                    // A requisição foi bem-sucedida
+                    console.log("Resposta"+response);
+                    document.getElementById("status").innerHTML = "INSERIDO COM SUCESSO - Eu acho";
+                },
+                error: function(xhr, status, error) {
+                    // Ocorreu um erro ao processar a requisição
+                    console.log('xhr:', xhr);
+                    console.log('status:', status);
+                    console.error('Erro na requisição:', error);
+                }
+            });                   
+        }        
+    </script>
+</head>
+<body>
+    <input type="number" id="id_coletor" /> 
+    <input type="text" id="nome_coletor" />
+    <button value="Insere Coletor" onclick="insere_coletor_servidor()" />   
+    <div id="status"></div> 
+</body>
+</html>

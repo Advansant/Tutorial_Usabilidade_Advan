@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        // Defina os dados a serem enviados
+        var dados = {
+            id: 120,
+            nome: 'Jose'
+        };
+        // Faça a requisição AJAX
+        
+        $.ajax({
+            url: '/colinsert',
+            type: 'POST',
+            contentType: 'application/json', //Tipo de dado enviado
+            //dataType: 'json',// Tipo de dado que pode ser recebido (ou nada)
+            data: JSON.stringify(dados),
+            success: function(response) {
+                // A requisição foi bem-sucedida
+                console.log("Resposta"+response);
+            },
+            error: function(xhr, status, error) {
+                // Ocorreu um erro ao processar a requisição
+                console.log('xhr:', xhr);
+                console.log('status:', status);
+                console.error('Erro na requisição:', error);
+            }
+        });          
+        $.ajax({
+            url: '/coletores_nome',
+            type: 'POST',
+            contentType: 'application/json', //Tipo de dado enviado
+            dataType: 'json',// Tipo de dado que pode ser recebido (ou nada)
+            data: JSON.stringify(dados),
+            success: function(response) {                
+                // A requisição foi bem-sucedida                
+                response.forEach((element) => {
+                    console.log(element);                    
+                });
+                console.log("Resposta:"+JSON.stringify(response));
+                
+
+            },
+            error: function(xhr, status, error) {
+                // Ocorreu um erro ao processar a requisição
+                console.log('xhr:', xhr);
+                console.log('status:', status);
+                console.error('Erro na requisição:', error);
+            }
+        });           
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
